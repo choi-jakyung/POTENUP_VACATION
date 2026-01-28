@@ -77,17 +77,21 @@ canvas.addEventListener('mouseup', stopDrawing);
 canvas.addEventListener('mouseout', stopDrawing);
 
 // 터치 이벤트 (모바일 지원)
-canvas.addEventListener('touchstart', handleTouch);
-canvas.addEventListener('touchmove', handleTouch);
-canvas.addEventListener('touchend', stopDrawing);
+canvas.addEventListener('touchstart', handleTouch, { passive: false });
+canvas.addEventListener('touchmove', handleTouch, { passive: false });
+canvas.addEventListener('touchend', stopDrawing, { passive: false });
+canvas.addEventListener('touchcancel', stopDrawing, { passive: false });
 
 function getEventPos(e) {
     const rect = canvas.getBoundingClientRect();
     
     let clientX, clientY;
-    if (e.touches) {
+    if (e.touches && e.touches.length > 0) {
         clientX = e.touches[0].clientX;
         clientY = e.touches[0].clientY;
+    } else if (e.changedTouches && e.changedTouches.length > 0) {
+        clientX = e.changedTouches[0].clientX;
+        clientY = e.changedTouches[0].clientY;
     } else {
         clientX = e.clientX;
         clientY = e.clientY;
@@ -123,7 +127,8 @@ function draw(e) {
     lastY = pos.y;
 }
 
-function stopDrawing() {
+function stopDrawing(e) {
+    if (e) e.preventDefault();
     isDrawing = false;
 }
 
@@ -133,6 +138,8 @@ function handleTouch(e) {
         startDrawing(e);
     } else if (e.type === 'touchmove') {
         draw(e);
+    } else if (e.type === 'touchend' || e.type === 'touchcancel') {
+        stopDrawing(e);
     }
 }
 
@@ -144,20 +151,46 @@ clearButton.addEventListener('click', function() {
 
 // PDF 변환 기능 (화면 그대로 캡처하여 한글 깨짐 방지)
 document.getElementById('generatePDF').addEventListener('click', function() {
+    const button = this;
+    const originalText = button.textContent;
+    
+    // 로딩 상태 표시
+    button.disabled = true;
+    button.textContent = 'PDF 생성 중...';
+    
     accordionContent.classList.remove('show');
     accordionButton.classList.remove('active');
     document.body.classList.add('pdf-capture');
+    
     const element = document.querySelector('.container');
+    
+    // 모바일 감지
+    const isMobile = window.innerWidth <= 768;
+    const scale = isMobile ? 1.5 : 2;
+    
     var done = function() {
         document.body.classList.remove('pdf-capture');
+        button.disabled = false;
+        button.textContent = originalText;
     };
+    
     requestAnimationFrame(function() {
         html2pdf().set({
-            margin: [10, 10, 10, 10],
+            margin: isMobile ? [5, 5, 5, 5] : [10, 10, 10, 10],
             filename: '휴가신청서.pdf',
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
+            html2canvas: { 
+                scale: scale,
+                useCORS: true,
+                logging: false,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight
+            },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        }).from(element).save().then(done).catch(done);
+        }).from(element).save().then(done).catch(function(error) {
+            console.error('PDF 생성 오류:', error);
+            alert('PDF 생성 중 오류가 발생했습니다. 다시 시도해주세요.');
+            done();
+        });
     });
 });

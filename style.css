@@ -274,10 +274,196 @@ body {
     background-color: #004085;
 }
 
+.pdf-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
 /* PDF 캡처 시 버튼 숨김 */
 body.pdf-capture .pdf-button-container,
 body.pdf-capture .clear-signature {
     display: none !important;
+}
+
+/* 모바일 반응형 스타일 */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    .container {
+        padding: 20px 15px;
+        border-radius: 12px;
+        max-width: 100%;
+    }
+    
+    .form-header {
+        margin-bottom: 30px;
+    }
+    
+    .wanted-logo {
+        height: 28px;
+        margin-bottom: 10px;
+    }
+    
+    .title {
+        font-size: 22px;
+        word-break: keep-all;
+    }
+    
+    .applicant-info {
+        margin-bottom: 25px;
+    }
+    
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    
+    .label {
+        min-width: auto;
+        margin-bottom: 8px;
+        font-size: 14px;
+        width: 100%;
+    }
+    
+    .input-field {
+        width: 100%;
+        font-size: 16px; /* iOS 줌 방지 */
+        padding: 8px 0;
+        min-height: 44px; /* 터치 타겟 크기 */
+    }
+    
+    .inline-input {
+        width: 100%;
+        max-width: 100%;
+        min-width: auto;
+        font-size: 16px;
+        padding: 6px 0;
+        margin: 6px 0;
+        display: block;
+    }
+    
+    .statement-section {
+        margin: 30px 0;
+    }
+    
+    .statement {
+        font-size: 14px;
+        line-height: 1.8;
+        word-break: keep-all;
+    }
+    
+    .statement .inline-input {
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+        text-align: left;
+    }
+    
+    .application-section {
+        margin-top: 30px;
+    }
+    
+    .application-row {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 25px;
+        width: 100%;
+    }
+    
+    .application-row .label {
+        margin-bottom: 8px;
+    }
+    
+    .application-field {
+        width: 100%;
+        min-height: 44px;
+    }
+    
+    .signature-row {
+        align-items: flex-start;
+    }
+    
+    .signature-container {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+        gap: 12px;
+    }
+    
+    .signature-block {
+        width: 100%;
+        align-items: flex-start;
+    }
+    
+    .signature-label {
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+    
+    #signatureCanvas {
+        width: 100%;
+        max-width: 100%;
+        height: 100px;
+        touch-action: none;
+        -ms-touch-action: none;
+    }
+    
+    .signature-hint {
+        font-size: 10px;
+        margin-top: 4px;
+    }
+    
+    .clear-signature {
+        margin-top: 0;
+        padding: 10px 20px;
+        font-size: 14px;
+        min-height: 44px;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .pdf-button-container {
+        margin-top: 40px;
+    }
+    
+    .pdf-button {
+        width: 100%;
+        padding: 18px;
+        font-size: 18px;
+        min-height: 56px;
+    }
+    
+    .accordion-container {
+        width: 100%;
+    }
+    
+    .accordion-button {
+        font-size: 16px;
+        padding: 12px;
+        min-height: 44px;
+    }
+    
+    .accordion-content {
+        position: relative;
+        max-height: 300px;
+        width: 100%;
+    }
+    
+    .accordion-item {
+        padding: 12px;
+        font-size: 15px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
 }
 
 /* 인쇄용 스타일 */
