@@ -1,0 +1,294 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.form-header {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 40px;
+}
+
+.wanted-logo {
+    align-self: flex-start;
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+}
+
+.form-section {
+    width: 100%;
+}
+
+.applicant-info {
+    margin-bottom: 30px;
+}
+
+.info-row {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.label {
+    font-weight: bold;
+    min-width: 120px;
+    display: inline-block;
+    color: #000;
+}
+
+.input-field {
+    border: none;
+    border-bottom: 1px solid #000;
+    padding: 5px 10px;
+    font-size: 14px;
+    flex: 1;
+    background: transparent;
+    outline: none;
+}
+
+.input-field:focus {
+    border-bottom: 2px solid #000;
+}
+
+.inline-input {
+    border: none;
+    border-bottom: 1px solid #000;
+    padding: 2px 8px;
+    font-size: 14px;
+    min-width: 120px;
+    width: 220px;
+    max-width: 280px;
+    background: transparent;
+    outline: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.application-field {
+    width: 160px;
+    flex: none;
+}
+
+/* 아코디언 스타일 */
+.accordion-container {
+    position: relative;
+    flex: 1;
+}
+
+.accordion-button {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    background-color: white;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.accordion-button:hover {
+    background-color: #f0f0f0;
+}
+
+.accordion-button::after {
+    content: '▼';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s;
+}
+
+.accordion-button.active::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.accordion-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.accordion-content.show {
+    display: block;
+}
+
+.accordion-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.accordion-item:hover {
+    background-color: #f0f0f0;
+}
+
+.accordion-item:last-child {
+    border-bottom: none;
+}
+
+/* 본문 섹션 */
+.statement-section {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.statement {
+    font-size: 16px;
+    line-height: 2;
+    color: #000;
+}
+
+.statement .inline-input {
+    width: 200px;
+    min-width: 180px;
+    max-width: 320px;
+}
+
+/* 신청 섹션 */
+.application-section {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.application-row {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signature-row {
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.signature-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.signature-label {
+    font-size: 14px;
+    color: #000;
+}
+
+#signatureCanvas {
+    border: 1px solid #000;
+    border-radius: 4px;
+    cursor: crosshair;
+    background-color: white;
+    display: block;
+    width: 150px;
+    height: 60px;
+}
+
+.clear-signature {
+    padding: 5px 10px;
+    font-size: 12px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.clear-signature:hover {
+    background-color: #e0e0e0;
+}
+
+/* PDF 버튼 */
+.pdf-button-container {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.pdf-button {
+    padding: 15px 40px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.pdf-button:hover {
+    background-color: #0056b3;
+}
+
+.pdf-button:active {
+    background-color: #004085;
+}
+
+/* PDF 캡처 시 버튼 숨김 */
+body.pdf-capture .pdf-button-container,
+body.pdf-capture .clear-signature {
+    display: none !important;
+}
+
+/* 인쇄용 스타일 */
+@media print {
+    body {
+        background-color: white;
+        padding: 0;
+    }
+    
+    .container {
+        box-shadow: none;
+        padding: 20px;
+    }
+    
+    .pdf-button-container {
+        display: none;
+    }
+    
+    .clear-signature {
+        display: none;
+    }
+    
+    .accordion-button::after {
+        display: none;
+    }
+}

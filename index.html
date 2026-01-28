@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>휴가 신청서</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="pdfSource">
+        <header class="form-header">
+            <img src="assets/wanted-logo.png" alt="원티드" class="wanted-logo">
+            <h1 class="title">휴가 신청서</h1>
+        </header>
+        <div class="form-section">
+            <div class="applicant-info">
+                <div class="info-row">
+                    <span class="label">성 명 :</span>
+                    <input type="text" id="name" class="input-field" placeholder="">
+                </div>
+                <div class="info-row">
+                    <span class="label">생년월일 :</span>
+                    <input type="text" id="birthdate" class="input-field" placeholder="6자리로 입력해주세요" maxlength="6">
+                </div>
+                <div class="info-row">
+                    <span class="label">전화번호 :</span>
+                    <input type="text" id="phone" class="input-field" placeholder="010-0000-0000" maxlength="13">
+                </div>
+                <div class="info-row">
+                    <span class="label">훈련과정명 :</span>
+                    <div class="accordion-container">
+                        <button class="accordion-button" id="courseAccordion">
+                            선택하세요
+                        </button>
+                        <div class="accordion-content" id="courseContent">
+                            <div class="accordion-item" data-course="프로그래밍 기반 얼라인 프로젝트">프로그래밍 기반 얼라인 프로젝트</div>
+                            <div class="accordion-item" data-course="(포텐업) 알고리즘을 활용한 네트워크 RPG 게임제작">(포텐업) 알고리즘을 활용한 네트워크 RPG 게임제작</div>
+                            <div class="accordion-item" data-course="생성형 AI기반 FE/BE 협업 과정">생성형 AI기반 FE/BE 협업 과정</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="statement-section">
+                <p class="statement">
+                    위 본인은 주식회사 원티드랩에서<br>
+                    K-Digital Training 훈련을 받던 중<br>
+                    <input type="text" id="startDate" class="inline-input" placeholder=""> / 
+                    (<input type="text" id="endDate" class="inline-input" placeholder="">) 일<br>
+                    휴가를 신청합니다.
+                </p>
+            </div>
+
+            <div class="application-section">
+                <div class="application-row">
+                    <span class="label">신청일 :</span>
+                    <input type="text" id="applicationDate" class="input-field application-field" placeholder="">
+                </div>
+                <div class="application-row signature-row">
+                    <span class="label">신청자 :</span>
+                    <input type="text" id="applicantName" class="input-field application-field" placeholder="">
+                    <div class="signature-container">
+                        <span class="signature-label">(인)</span>
+                        <canvas id="signatureCanvas" width="150" height="60"></canvas>
+                        <button class="clear-signature" id="clearSignature">지우기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="pdf-button-container">
+            <button id="generatePDF" class="pdf-button">PDF로 변환하기</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
