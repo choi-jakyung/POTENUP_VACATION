@@ -533,7 +533,7 @@ document.getElementById('generatePDF').addEventListener('click', async function 
 
         console.log('[제출 4/4] DB insert 완료', insertData);
 
-await fetch('https://n8n-bizdev.wanted.jobs/webhook-test/leave-request', {
+await fetch('https://n8n-bizdev.wanted.jobs/webhook/leave-request', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
