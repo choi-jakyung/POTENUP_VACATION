@@ -505,6 +505,7 @@ document.getElementById('generatePDF').addEventListener('click', async function 
             end_date: endDate,
             pdf_url: pdfUrl
         };
+        
 
         console.log('[제출 4/4] DB insert 시작', insertPayload);
 
@@ -531,6 +532,17 @@ document.getElementById('generatePDF').addEventListener('click', async function 
         }
 
         console.log('[제출 4/4] DB insert 완료', insertData);
+
+await fetch('https://n8n-bizdev.wanted.jobs/webhook-test/leave-request', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(insertPayload)
+});
+
+console.log('[Webhook] n8n 호출 완료');
+        
         console.log('[제출 완료] Storage + DB 저장 성공', {
             fileName,
             pdfUrl,
