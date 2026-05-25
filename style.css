@@ -94,6 +94,7 @@ body {
 
 .application-field {
     width: 160px;
+    max-width: 160px;
     flex: none;
 }
 
@@ -183,6 +184,11 @@ body {
     max-width: 320px;
 }
 
+.statement-date-line {
+    display: inline;
+    white-space: nowrap;
+}
+
 /* 신청 섹션 */
 .application-section {
     margin-top: 40px;
@@ -191,9 +197,28 @@ body {
 
 .application-row {
     margin-bottom: 20px;
-    display: flex;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
+    gap: 0;
+    width: auto;
+    max-width: 100%;
+}
+
+.application-row .label {
+    flex-shrink: 0;
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.application-row .input-field,
+.application-row .application-field,
+.application-row .pdf-print-value--application {
+    flex: none;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .signature-row {
@@ -226,7 +251,7 @@ body {
 }
 
 #signatureCanvas {
-    border: 1px solid #000;
+    border: 2px solid #000;
     border-radius: 4px;
     cursor: crosshair;
     background-color: white;
@@ -283,6 +308,129 @@ body {
 /* PDF 캡처 시 버튼 숨김 */
 body.pdf-capture .pdf-button-container,
 body.pdf-capture .clear-signature {
+    display: none !important;
+}
+
+body.pdf-capture {
+    padding: 0;
+    background: #fff;
+}
+
+body.pdf-capture .container {
+    overflow: visible !important;
+    height: auto !important;
+    max-width: none;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.pdf-capture-wrapper {
+    position: fixed;
+    left: -12000px;
+    top: 0;
+    width: 800px;
+    background: #fff;
+    overflow: visible;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.pdf-capture-wrapper #pdfSource {
+    width: 800px;
+    max-width: 800px;
+    padding: 24px 40px 36px;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+/* PDF 캡처용 인쇄 텍스트 (input 대체) */
+.pdf-print-value {
+    color: #000;
+    background: transparent;
+    box-sizing: border-box;
+}
+
+.pdf-print-value--field {
+    display: inline-block;
+    flex: 1;
+    border-bottom: 1px solid #000;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 28px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.pdf-print-value--inline {
+    display: inline-block;
+    border: none;
+    border-bottom: 1px solid #000;
+    padding: 2px 8px;
+    font-size: 14px;
+    line-height: 1.6;
+    min-width: 180px;
+    width: 200px;
+    max-width: 280px;
+    text-align: center;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+.pdf-print-value--application {
+    display: inline-block;
+    width: 160px;
+    flex: none;
+    border-bottom: 1px solid #000;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 28px;
+    text-align: center;
+}
+
+.pdf-course-value {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: left;
+    color: #000;
+    background: #fff;
+}
+
+.pdf-signature-img {
+    display: block;
+    width: 150px;
+    height: 60px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    object-fit: contain;
+    background: #fff;
+}
+
+body.pdf-capture .container {
+    max-width: 800px !important;
+    width: 800px !important;
+    padding: 40px !important;
+    margin: 0 auto !important;
+}
+
+body.pdf-capture #pdfSource {
+    width: 100%;
+    overflow: visible;
+}
+
+body.pdf-capture .accordion-content {
+    display: none !important;
+}
+
+body.pdf-capture .accordion-button::after {
     display: none !important;
 }
 
@@ -358,11 +506,21 @@ body.pdf-capture .clear-signature {
         word-break: keep-all;
     }
     
-    .statement .inline-input {
-        display: block;
-        width: 100%;
-        margin: 8px 0;
-        text-align: left;
+    .statement-date-line {
+        display: inline-flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: center !important;
+        align-items: baseline !important;
+        white-space: nowrap !important;
+    }
+
+    .statement-date-line .inline-input {
+        display: inline-block !important;
+        width: 200px !important;
+        min-width: 180px !important;
+        max-width: 280px !important;
+        margin: 0 4px !important;
+        text-align: center !important;
     }
     
     .application-section {
@@ -370,23 +528,33 @@ body.pdf-capture .clear-signature {
     }
     
     .application-row {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 25px;
-        width: 100%;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        width: auto;
+        max-width: 100%;
     }
-    
+
     .application-row .label {
-        margin-bottom: 8px;
+        width: auto;
+        min-width: 88px;
+        margin-bottom: 0;
     }
-    
+
     .application-field {
-        width: 100%;
-        min-height: 44px;
+        width: 160px;
+        max-width: 160px;
+        min-height: auto;
+        flex: none;
     }
-    
+
     .signature-row {
+        flex-direction: row;
+        flex-wrap: wrap;
         align-items: flex-start;
+        justify-content: center;
     }
     
     .signature-container {
@@ -466,6 +634,139 @@ body.pdf-capture .clear-signature {
     }
 }
 
+/* PDF 캡처 시 여백 축소 (상단으로 조금 올림) */
+body.pdf-capture .form-header {
+    margin-bottom: 24px !important;
+}
+
+body.pdf-capture .wanted-logo {
+    margin-bottom: 8px !important;
+}
+
+body.pdf-capture .applicant-info {
+    margin-bottom: 20px !important;
+}
+
+body.pdf-capture .statement-section {
+    margin: 28px 0 !important;
+}
+
+body.pdf-capture .application-section {
+    margin-top: 28px !important;
+}
+
+body.pdf-capture .statement-date-line .pdf-print-value--inline,
+body.pdf-capture .statement-date-line .inline-input {
+    border-bottom: 1px solid #000 !important;
+}
+
+/* PDF 캡처 시 모바일 스타일 무시 → 화면(데스크톱) 레이아웃 유지 */
+body.pdf-capture .info-row {
+    flex-direction: row !important;
+    align-items: center !important;
+    margin-bottom: 15px !important;
+    width: 100% !important;
+}
+
+body.pdf-capture .label {
+    min-width: 120px !important;
+    width: auto !important;
+    margin-bottom: 0 !important;
+}
+
+body.pdf-capture .input-field,
+body.pdf-capture .accordion-button {
+    width: auto !important;
+    min-height: auto !important;
+    font-size: 14px !important;
+    padding: 5px 10px !important;
+}
+
+body.pdf-capture .inline-input,
+body.pdf-capture .statement .inline-input,
+body.pdf-capture .statement-date-line .inline-input,
+body.pdf-capture .pdf-print-value--inline {
+    display: inline-block !important;
+    width: 200px !important;
+    min-width: 180px !important;
+    max-width: 280px !important;
+    margin: 0 !important;
+}
+
+body.pdf-capture .statement-date-line {
+    display: inline-flex !important;
+    align-items: baseline !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+}
+
+body.pdf-capture .statement-date-line .pdf-print-value--inline {
+    text-align: center !important;
+}
+
+body.pdf-capture .application-section {
+    display: block !important;
+    visibility: visible !important;
+    overflow: visible !important;
+    text-align: center !important;
+}
+
+body.pdf-capture .statement {
+    font-size: 16px !important;
+    line-height: 2 !important;
+}
+
+body.pdf-capture .application-row {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 20px !important;
+    width: auto !important;
+    max-width: 100% !important;
+}
+
+body.pdf-capture .application-row .label {
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+    width: auto !important;
+    min-width: 120px !important;
+    margin: 0 4px 0 0 !important;
+    text-align: left !important;
+}
+
+body.pdf-capture .application-row .input-field,
+body.pdf-capture .application-row .pdf-print-value--application {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    flex: none !important;
+}
+
+body.pdf-capture .signature-row {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+}
+
+body.pdf-capture .signature-container {
+    flex-direction: row !important;
+    margin-left: 10px !important;
+    width: auto !important;
+}
+
+body.pdf-capture .application-field,
+body.pdf-capture .pdf-print-value--application {
+    width: 160px !important;
+    max-width: 160px !important;
+    flex: none !important;
+}
+
+body.pdf-capture .info-row .pdf-print-value--field {
+    flex: 1 !important;
+}
+
 /* 인쇄용 스타일 */
 @media print {
     body {
@@ -489,4 +790,16 @@ body.pdf-capture .clear-signature {
     .accordion-button::after {
         display: none;
     }
+}
+
+#pdfSource {
+    display: block;
+    overflow: visible;
+    background: white;
+}
+
+#signatureCanvas {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
